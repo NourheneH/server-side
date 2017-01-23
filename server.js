@@ -1,9 +1,14 @@
+
+
 var express     =   require("express");
 var app         =   express();
 var bodyParser  =   require("body-parser");
 var router      =   express.Router();
 var mongoOp     =   require("./models/mongo");
-
+//var User = Mongoose.model('User');
+//var Role = Mongoose.model('Role');
+var User = mongoOp.User;
+var Role = mongoOp.Role;
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({"extended" : false}));
 
@@ -18,7 +23,7 @@ router.get("/",function(req,res){
 router.route("/users")
     .get(function(req,res){
         var response = {};
-        mongoOp.User.find({},function(err,data){
+        User.find().populate('Role').exec(function(err,data){
         // Mongo command to fetch all data from collection.
             if(err) {
                 response = {"error" : true,"message" : "Error fetching data"};
@@ -30,27 +35,40 @@ router.route("/users")
     });
 
     //Add user
-    router.route("/user")
+    router.route("/user/:id")
 .post(function(req,res){
-        var db = new mongoOp.User();
+        var db = new User();
+       // var query = Role.findById(req.params.id);
+        //var roleId = ObjectId(req.params.id);
         var response = {};
         // fetch email and password from REST request.
         // Add strict validation when you use this in Production.
+        req.Role = Role;
         db.email = req.body.email; 
         // Hash the password using SHA1 algorithm.
         db.password = req.body.password;
         db.confirm = req.body.confirm;
       db.name= req.body.name;
         db.surname = req.body.surname; 
-        db.admin = req.body.admin;
+      //  db.admin = req.body.admin;
+
         db.save(function(err){
         // save() will run insert() command of MongoDB.
         // it will add new data in collection.
             if(err) {
                 response = {"error" : true,"message" : "Error adding data"};
             } else {
-               
-                response = {"error" : false,"message" : "Data added"};
+                Role.update(req.params.id,{$push: {users:db._id}},function(err,data){
+                    if(err){
+                          response = {"error" : true,"message" : "Error fetching data"};
+                    }
+                    else {
+                        
+                         response = {"error" : false,"message" : "Data added"};
+                    }
+                    res.json(response);
+                });      
+               response = {"error" : false,"message" : "Data added"};
             }
             res.json(response);
         });
@@ -58,7 +76,7 @@ router.route("/users")
 router.route("/users/:email/:password")
     .get(function(req,res){
         var response = {}
-        mongoOp.User.find(req.body.email,req.body.password,function(err,data){
+        User.find(req.body.email,req.body.password,function(err,data){
             if(err){
                 response={"error": true,"message":"Error adding data"};
             }
@@ -73,7 +91,7 @@ router.route("/users/:id")
     .get(function(req,res){
         
         var response={};
-        mongoOp.User.findById(req.params.id,function(err,data){
+        User.findById(req.params.id,function(err,data){
             if(err){
                 response={"error": true,"message":"Error adding data"};
             }
@@ -87,7 +105,7 @@ router.route("/users/:id")
         var response = {};
         // first find out record exists or not
         // if it does then update the record
-        mongoOp.User.findById(req.params.id,function(err,data){
+        User.findById(req.params.id,function(err,data){
             if(err) {
                 response = {"error" : true,"message" : "Error fetching data"};
             } else {
@@ -125,12 +143,12 @@ router.route("/users/:id")
        .delete(function(req,res){
         var response = {};
         // find the data
-        mongoOp.User.findById(req.params.id,function(err,data){
+        User.findById(req.params.id,function(err,data){
             if(err) {
                 response = {"error" : true,"message" : "Error fetching data"};
             } else {
                 // data exists, remove it.
-                mongoOp.User.remove({_id : req.params.id},function(err){
+                User.remove({_id : req.params.id},function(err){
                     if(err) {
                         response = {"error" : true,"message" : "Error deleting data"};
                     } else {
@@ -150,7 +168,7 @@ router.route("/users/:id")
     router.route("/roles")
         .get(function(req,res){
             var response = {};
-        mongoOp.Role.find({},function(err,data){
+        Role.find().populate('users').exec({},function(err,data){
         // Mongo command to fetch all data from collection.
             if(err) {
                 response = {"error" : true,"message" : "Error fetching data"};
@@ -161,19 +179,38 @@ router.route("/users/:id")
         });
         })
         .post(function(req,res){
-            var db = new mongoOp.Role();
+            var db = new Role();
             var response = {};
             db.type = req.body.type;
             db.save(function(err){
                 if(err){
                     response ={"error": true, "message": "Error fetching data"};
                 }
-                else{
+                Role.find().populate('users').exec({},function(err,data){
+                    if(err){
+                        response = {"error":  true,"message" : "Error fetching data"};
+                    }
+                    else{
                     response = {"error":false, "message": "data added"};
             
                 res.json(response);
                 }
+                });
+                
             });
+        });
+      router.route("/roles/id")
+        .get(function(req,res){
+            var response = {};
+        Role.findById(req.params.id).populate('users').exec({},function(err,data){
+        // Mongo command to fetch all data from collection.
+            if(err) {
+                response = {"error" : true,"message" : "Error fetching data"};
+            } else {
+                response = {"error" : false,"message" : data};
+            }
+            res.json(response);
+        });
         });
     
 
