@@ -18,5 +18,8 @@
     "express": "^4.14.0",
     "mongojs": "^2.4.0",
     "mongoose": "^4.7.6"
+  },
+  "devDependencies": {
+    "http-proxy-middleware": "^0.17.3"
   }
 }
