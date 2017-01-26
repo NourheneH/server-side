@@ -11,19 +11,15 @@ var userSchema  = mongoSchema({
     name: String,
     surname: String,
     confirm: String,
-   // "isAdmin": Boolean,
+    "isAdmin": false,
  
 });
-var roleSchema = mongoSchema({
-    type: String,
-    users: [{type: Mongoose.Schema.Types.ObjectId, ref: 'User'}]
 
-});
 // create model if not exists.
 var User = Mongoose.model('User',userSchema);
-var Role = Mongoose.model('Role',roleSchema);
+//var Role = Mongoose.model('Role',roleSchema);
 
 module.exports ={
   User :User,
-  Role :Role,
+ // Role :Role,
 }
