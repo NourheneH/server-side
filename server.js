@@ -12,7 +12,7 @@ app.use(bodyParser.urlencoded({"extended" : false}));
  var apiRoute = require("./controllers/apiRoute");
 
 //app.set('superSecret', mongoOp.secret);
-app.use("/", apiRoute.use);
+//app.use("/", apiRoute.use);
 app.get("/users",user.get)
 app.post("/user",user.post);
 app.get("/users/:email/:password",user.getByElement);
