@@ -1,5 +1,9 @@
+//var config = require('./config');
+
 var Mongoose    =   require("mongoose");
 Mongoose.connect('mongodb://localhost:27017/db_proxym');
+//Mongoose.secret('superSecret','proxymit2017');
+
 
 // create instance of Schema
 var mongoSchema =   Mongoose.Schema;

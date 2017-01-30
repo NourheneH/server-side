@@ -4,6 +4,7 @@ var app         =   express();
 var bodyParser  =   require("body-parser");
 var router      =   express.Router();
 var mongoOp     =   require("../models/mongo");
+var jwt    = require('jsonwebtoken');
 var User = mongoOp.User;
 //var error = require("./connect")
 app.use(bodyParser.json());
@@ -40,7 +41,7 @@ exports.post =function(req,res){
         db.confirm = req.body.confirm;
         db.name= req.body.name;
         db.surname = req.body.surname; 
-        db.isAdmin = req.body.isAdmin;
+        db.isAdmin = false;
     
 
         db.save(function(err,data){
@@ -142,6 +143,45 @@ exports.post =function(req,res){
             }
         });
     };
+
+    //login user 
+    exports.login = function(req, res) {
+
+  // find the user
+  User.findOne({
+    email: req.body.email
+  }, function(err, user) {
+
+    if (err) throw err;
+
+    if (!user) {
+      res.json({ success: false, message: 'Authentication failed. User not found.' });
+    } else if (user) {
+
+      // check if password matches
+      if (user.password != req.body.password) {
+        res.json({ success: false, message: 'Authentication failed. Wrong password.' });
+      } else {
+
+        // if user is found and password is right
+        // create a token
+        var token = jwt.sign(user , 'proxymit',{
+          expiresIn: 1440 // expires in 24 hours
+        });
+
+        // return the information including token as JSON
+        res.json({
+          success: true,
+          message: 'Enjoy your token!',
+          token: token
+        });
+      }   
+
+    }
+
+  });
+};
+
 
 
 
