@@ -3,7 +3,7 @@ var express     =   require("express");
 var app         =   express();
 var bodyParser  =   require("body-parser");
 var router      =   express.Router();
-var mongoOp     =   require("../models/mongo");
+var mongoOp     =   require("../models/user");
 var jwt    = require('jsonwebtoken');
 var User = mongoOp.User;
 //var error = require("./connect")
@@ -143,7 +143,7 @@ exports.post =function(req,res){
             }
         });
     };
-
+/*
     //login user 
     exports.login = function(req, res) {
 
@@ -183,5 +183,5 @@ exports.post =function(req,res){
 };
 
 
-
+*/
 
