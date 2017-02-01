@@ -6,9 +6,14 @@ var router      =   express.Router();
 var mongoOp     =   require("../models/user");
 var jwt    = require('jsonwebtoken');
 var User = mongoOp.User;
+var config = require('../../../config/config');
+var passport = require('passport');
+var session = require('express-session');
 //var error = require("./connect")
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({"extended" : false}));
+
+require("../../../config/passport") (passport);
 /*
     ****User***
  */
@@ -143,45 +148,30 @@ exports.post =function(req,res){
             }
         });
     };
-/*
+
     //login user 
-    exports.login = function(req, res) {
+    exports.login = function (req,res,next){
+        if (!req.body.email || !req.body.password) {
+            return res.json({error: 'Email and Password required'});
+        }
 
-  // find the user
-  User.findOne({
-    email: req.body.email
-  }, function(err, user) {
+        passport.authenticate('local-login', function (err, user) {
+            if (err) {
+                return res.json(err);
+            }
+            if (user.error) {
+                return res.json({error: user.error});
+            }
+            req.logIn(user, function (err) {
+                if (err) {
+                    return res.json(err);
+                }
+                var token = jwt.sign(user, config.secrect, {
+                    expiresIn: 604500 // expires in 24 hours
+                });
+                req.session.token = token;
+                return res.json({state: 'userMainView', token: token,});
 
-    if (err) throw err;
-
-    if (!user) {
-      res.json({ success: false, message: 'Authentication failed. User not found.' });
-    } else if (user) {
-
-      // check if password matches
-      if (user.password != req.body.password) {
-        res.json({ success: false, message: 'Authentication failed. Wrong password.' });
-      } else {
-
-        // if user is found and password is right
-        // create a token
-        var token = jwt.sign(user , 'proxymit',{
-          expiresIn: 1440 // expires in 24 hours
-        });
-
-        // return the information including token as JSON
-        res.json({
-          success: true,
-          message: 'Enjoy your token!',
-          token: token
-        });
-      }   
-
-    }
-
-  });
-};
-
-
-*/
-
+            });
+        })(req, res,next);
+    };

@@ -2,17 +2,19 @@
 var express     =   require("express");
 var router        =   express();
  var user = require("./modules/users/controllers/user");
+
 //app.set('superSecret', mongoOp.secret);
-//app.use("/users", apiRoute.use);
+
 module.exports = router;
 router.get("/users",user.get)
-router.post("/users",user.post);
+router.post("/user",user.post);
 router.get("/users/:email/:password",user.getByElement);
 router.get("/users/:id",user.getById);
 router.put("/users/:id",user.put);
 router.delete("/users/:id", user.delete);
+router.post("/authenticate",user.login);
 //app.post("/authenticate", user.login);
-
+//router.get("/users", verifyToken.use);
  /*
 // required for passport
 app.use(session({

@@ -1,5 +1,5 @@
-var config = require('../../../config');
-
+var config = require('../../../config/config');
+//var bcrypt   = require('bcrypt-nodejs');
 var Mongoose    =   require("mongoose");
 Mongoose.connect(config.database);
 //Mongoose.secret('superSecret','proxymit2017');
@@ -14,9 +14,17 @@ var userSchema  = mongoSchema({
     name: String,
     surname: String,
     confirm: String,
-    "isAdmin": false,
+    isAdmin: false,
  
 });
+/*
+// checking if password is valid
+userSchema.methods.validPassword = function(password) {
+    return bcrypt.compareSync(password, this.password);
+};*/
+userSchema.methods.validPassword = function(password) {
+  return (this.password = password);
+};
 
 // create model if not exists.
 var User = Mongoose.model('User',userSchema);
