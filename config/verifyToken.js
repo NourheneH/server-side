@@ -12,6 +12,14 @@ verifyToken.use(bodyParser.urlencoded({"extended" : false}));
 module.exports = verifyToken;
 // route middleware to verify a token
   verifyToken.use ("/users", function(req, res, next) {
+    gettoken(req,res,next);
+  }) ;
+  verifyToken.use("/user", function(req,res,next){
+    gettoken(req,res,next);
+  });
+  
+  
+  gettoken = function () {
 
   // check header or url parameters or post parameters for token
   var token = req.body.token || req.query.token || req.headers['x-access-token'];
@@ -40,4 +48,4 @@ module.exports = verifyToken;
     });
     
   }
-  });
+  };
