@@ -44,8 +44,8 @@ exports.post =function(req,res){
         // Hash the password using SHA1 algorithm.
         db.password = req.body.password;
         db.confirm = req.body.confirm;
-        db.name= req.body.name;
-        db.surname = req.body.surname; 
+        db.firstname= req.body.firstname;
+        db.lastname = req.body.lastname; 
         db.isAdmin = false;
     
 
@@ -107,13 +107,13 @@ exports.post =function(req,res){
                     // case where password needs to be updated
                     data.password = req.body.password;
                 }
-                 if(req.body.name !== undefined) {
+                 if(req.body.firstname !== undefined) {
                     // case where email needs to be updated.
-                    data.name = req.body.name;
+                    data.firstname = req.body.firstname;
                 }
-                 if(req.body.surname !== undefined) {
+                 if(req.body.lastname !== undefined) {
                     // case where email needs to be updated.
-                    data.surname = req.body.surname;
+                    data.lastname = req.body.lastname;
                 }
                 // save the data
                 data.save(function(err){

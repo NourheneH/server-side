@@ -11,8 +11,8 @@ var mongoSchema =   Mongoose.Schema;
 var userSchema  = mongoSchema({
     email : String,
     password : String,
-    name: String,
-    surname: String,
+    firstname: String,
+    lastname: String,
     confirm: String,
     isAdmin: false,
  
