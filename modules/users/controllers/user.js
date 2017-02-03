@@ -44,8 +44,8 @@ exports.post =function(req,res){
         // Hash the password using SHA1 algorithm.
         db.password = req.body.password;
         db.confirm = req.body.confirm;
-        db.firstname= req.body.firstname;
-        db.lastname = req.body.lastname; 
+        db.name= req.body.name;
+        db.surname = req.body.surname; 
         db.isAdmin = false;
     
 
@@ -107,13 +107,13 @@ exports.post =function(req,res){
                     // case where password needs to be updated
                     data.password = req.body.password;
                 }
-                 if(req.body.firstname !== undefined) {
+                 if(req.body.name !== undefined) {
                     // case where email needs to be updated.
-                    data.firstname = req.body.firstname;
+                    data.name = req.body.name;
                 }
-                 if(req.body.lastname !== undefined) {
+                 if(req.body.surname !== undefined) {
                     // case where email needs to be updated.
-                    data.lastname = req.body.lastname;
+                    data.surname = req.body.surname;
                 }
                 // save the data
                 data.save(function(err){
@@ -154,6 +154,9 @@ exports.post =function(req,res){
         if (!req.body.email || !req.body.password) {
             return res.json({error: 'Email and Password required'});
         }
+
+
+        // if email and password valid
 
         passport.authenticate('local-login', function (err, user) {
             if (err) {

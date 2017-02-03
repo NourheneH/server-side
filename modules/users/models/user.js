@@ -22,13 +22,13 @@ var userSchema  = mongoSchema({
 userSchema.methods.validPassword = function(password) {
     return bcrypt.compareSync(password, this.password);
 };*/
-userSchema.methods.validPassword = function(password) {
-  return (this.password = password);
+userSchema.methods.validPassword = function(user, password) {
+  return (user.password = password);
 };
 
 // create model if not exists.
 var User = Mongoose.model('User',userSchema);
 
 module.exports ={
-  User :User,
+  User :User
 }

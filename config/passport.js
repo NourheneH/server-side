@@ -27,28 +27,32 @@ passport.use('local-login', new LocalStrategy ({
         passReqToCallback : true
 },
    
-function(req,email,password, done){
-    if (email) {
-       email = email.toLowerCase();
-  }
-  process.nextTick(function(){
-      User.findOne({ 'email' :  email }, function(err, user) {
-
-    if (err) { return done(err)};
-
-    if (!user) {
-      return done(null, {error: 'No user found'});
-    } 
-    if (!user.validPassword(password)) {
-                    return done(null, { error: 'Oops! Wrong password.' });
-   }
-                // all is well, return user
-                else {
-                    return done(null, user);
-}
-  });
-    });
+function(req, email, password, done){
   
+  if (email) {
+    email = email.toLowerCase();
+  }
+
+  process.nextTick(function(){
+    User.findOne({ 'email' :  email, 'password': password }, function(err, user) {
+
+      if (err) { return done(err)};
+
+      if (!user) { return done(null, {error: 'No user found'});}
+
+      return done(null, user);
+
+
+      //  if (!user.validPassword(password)) {
+      //                  return done(null, { error: 'Oops! Wrong password.' });
+      // }
+      // all is well, return user
+      //                 else {
+      //                     return done(null, user);
+      // }
+    });
+  });
+
 }));
 
 
