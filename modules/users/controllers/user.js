@@ -73,6 +73,18 @@ exports.post =function(req,res){
             res.json(response);
         });
     };
+    exports.getByEmail = function(req,res){
+        var response = {}
+        User.find({email:req.params.email},function(err,data){
+            if(err){
+                response= err;
+            }
+            else{
+               response={data}; 
+            }
+            res.json(response);
+        });
+    };
 
 //Get user by id:
     exports.getById =function(req,res){
