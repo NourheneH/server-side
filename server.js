@@ -1,14 +1,14 @@
 
 
-var express     =   require("express");
-var app         =   express();
-var bodyParser  =   require("body-parser");
+var express = require("express");
+var app = express();
+var bodyParser = require("body-parser");
 var passport = require('passport');
 var session = require('express-session');
-var jwt    = require('jsonwebtoken'); 
- //var verifyToken = require("./config/config");
+var jwt = require('jsonwebtoken');
+//var verifyToken = require("./config/config");
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({"extended" : false}));
+app.use(bodyParser.urlencoded({ "extended": false }));
 
 
 // required for passport
@@ -36,11 +36,11 @@ app.use(require("./config/verifyToken"));
 
 
 
-app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  res.header("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS");
-  next();
+app.use(function (req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    res.header("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS");
+    next();
 });
 
 
