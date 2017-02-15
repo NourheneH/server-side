@@ -39,7 +39,7 @@ exports.post =function(req,res){
         var response = {};
         // fetch email and password from REST request.
         // Add strict validation when you use this in Production.
-
+        db.userId = db._id;
         db.email = req.body.email; 
         // Hash the password using SHA1 algorithm.
         db.password = req.body.password;

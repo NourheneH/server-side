@@ -9,6 +9,7 @@ Mongoose.connect(config.database);
 var mongoSchema = Mongoose.Schema;
 // create schema
 var userSchema = mongoSchema({
+  userId : String ,
   email: String,
   password: String,
   firstname: String,
