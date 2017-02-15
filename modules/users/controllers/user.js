@@ -44,8 +44,8 @@ exports.post =function(req,res){
         // Hash the password using SHA1 algorithm.
         db.password = req.body.password;
         db.confirm = req.body.confirm;
-        db.name= req.body.name;
-        db.surname = req.body.surname; 
+        db.lastname= req.body.lastname;
+        db.firstname = req.body.firstname; 
         db.isAdmin = false;
     
 
