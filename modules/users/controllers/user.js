@@ -39,7 +39,7 @@ exports.post =function(req,res){
         var response = {};
         // fetch email and password from REST request.
         // Add strict validation when you use this in Production.
-        db.userId = db._id;
+      //  db.userId = db._id;
         db.email = req.body.email; 
         // Hash the password using SHA1 algorithm.
         db.password = req.body.password;
@@ -63,7 +63,8 @@ exports.post =function(req,res){
 
     exports.getByElement = function(req,res){
         var response = {}
-        User.find({email:req.params.email,password:req.params.password},function(err,data){
+        //User.find({email:req.params.email,password:req.params.password},function(err,data){
+            User.find({firstname:req.params.firstname},function(err,data){
             if(err){
                 response= err;
             }
@@ -73,7 +74,23 @@ exports.post =function(req,res){
             res.json(response);
         });
     };
-    exports.getByEmail = function(req,res){
+ 
+ exports.getUserById = function(req,res){
+        var response = {}
+        //User.find({email:req.params.email,password:req.params.password},function(err,data){
+           // User.find({userId:req.params.userId},function(err,data){
+               User.findById(req.params.id, function(err,data){
+            if(err){
+                response= err;
+            }
+            else{
+               response={data}; 
+            }
+            res.json(response);
+        });
+    };
+    // Get by email :
+       exports.getByEmail = function(req,res){
         var response = {}
         User.find({email:req.params.email},function(err,data){
             if(err){
@@ -85,21 +102,22 @@ exports.post =function(req,res){
             res.json(response);
         });
     };
-
 //Get user by id:
-    exports.getById =function(req,res){
-        
-        var response={};
-        User.findById(req.params.id,function(err,data){
+   /* exports.getUserById =function(req,res){ 
+            var response={};
+          //  var id = ObjectId(req.params.id);
+           
+        User.find({firstname: req.params.firstname},function(err,data){
             if(err){
-                response= err;
+                 response = err;
             }
             else{
-                response={data};
+               response={data};
+            //  response = {"message" : "response success", data};
             }
             res.json(response);
         });
-    };
+    }; */
     //Upadte user
   exports.put = function(req,res){
         var response = {};
@@ -119,13 +137,13 @@ exports.post =function(req,res){
                     // case where password needs to be updated
                     data.password = req.body.password;
                 }
-                 if(req.body.name !== undefined) {
+                 if(req.body.lastname !== undefined) {
                     // case where email needs to be updated.
-                    data.name = req.body.name;
+                    data.lastname = req.body.lastname;
                 }
-                 if(req.body.surname !== undefined) {
+                 if(req.body.firstname !== undefined) {
                     // case where email needs to be updated.
-                    data.surname = req.body.surname;
+                    data.firstname = req.body.firstname;
                 }
                 // save the data
                 data.save(function(err){
