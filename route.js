@@ -2,7 +2,7 @@
 var express = require("express");
 var router = express();
 var user = require("./modules/users/controllers/user");
-
+ 
 //app.set('superSecret', mongoOp.secret);
 
 module.exports = router;

@@ -3,6 +3,7 @@
 var express = require("express");
 var app = express();
 var bodyParser = require("body-parser");
+var busboyBodyParser = require("busboy-body-parser");
 var passport = require('passport');
 var session = require('express-session');
 var jwt = require('jsonwebtoken');
@@ -42,6 +43,13 @@ app.use(function (req, res, next) {
     res.header("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS");
     next();
 });
+
+
+app.use(busboyBodyParser({ multi: true }));
+app.use(busboyBodyParser({ limit: '10mb' }));  
+
+let main = require('./uploadFile/routingFile');
+    app.use('/api', main);
 
 
 
