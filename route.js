@@ -2,10 +2,13 @@
 var express = require("express");
 var router = express();
 var user = require("./modules/users/controllers/user");
+var tag = require("./modules/tags/controllers/tag")
  
 //app.set('superSecret', mongoOp.secret);
 
 module.exports = router;
+
+//Manage User
 router.get("/users", user.get)
 router.post("/user", user.post);
 router.get("/users/id/:id", user.getUserById);
@@ -15,3 +18,11 @@ router.get("/users/email/:email", user.getByEmail);
 router.put("/users/edit/:id", user.put);
 router.delete("/users/:id", user.delete);
 router.post("/authenticate", user.login);
+
+
+//Manage Tags 
+router.get("/tags", tag.get)
+router.post("/tag", tag.post);
+router.get("/tags/id/:id", tag.getTagById);
+router.put("/tags/edit/:id", tag.put);
+router.delete("/tags/:id", tag.delete);
