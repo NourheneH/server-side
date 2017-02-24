@@ -12,6 +12,7 @@ var tagSchema = mongoSchema({
   
   name : String,
   description : String,
+  tagId : String, 
 });
 
 // create model if not exists.

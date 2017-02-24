@@ -42,7 +42,7 @@ exports.post =function(req,res){
       //  db.userId = db._id;
         db.name = req.body.name;
         db.description = req.body.description;
-        
+        db.tagId = db._id;
         db.save(function(err,data){
         // save() will run insert() command of MongoDB.
         // it will add new data in collection.
