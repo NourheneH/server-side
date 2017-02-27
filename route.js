@@ -4,6 +4,8 @@ var router = express();
 var user = require("./modules/users/controllers/user");
 var tag = require("./modules/tags/controllers/tag");
 var topic = require ("./modules/topics/controllers/topic");
+var chapter = require ("./modules/chapters/controllers/chapter");
+var section = require("./modules/sections/controllers/section");
  
 //app.set('superSecret', mongoOp.secret);
 
@@ -32,3 +34,12 @@ router.delete("/tags/:id", tag.delete);
 //Manage Topics 
 router.get("/topics", topic.get);
 router.post("/topic/:id", topic.post);
+
+
+//Manage Chapters
+router.get("/chapters", chapter.get);
+router.post("/chapter/:id", chapter.post);
+
+//Manage Sections 
+router.get("/sections", section.get);
+router.post("/section/:id", section.post);

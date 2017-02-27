@@ -8,15 +8,16 @@ var Mongoose = require("mongoose");
 // create instance of Schema
 var mongoSchema = Mongoose.Schema;
 // create schema
-var topicSchema = mongoSchema({
+var sectionSchema = mongoSchema({
   title : String,
-  topic_id : String, 
-  chapters : [{ type: mongoSchema.Types.ObjectId, ref: 'Chapter' }]
+  section_id : String, 
+  content: String,
+  img : String,
 });
 
 // create model if not exists.
-var Topic = Mongoose.model('Topic', topicSchema);
+var Section = Mongoose.model('Section', sectionSchema);
 
 module.exports = {
-  Topic: Topic
+  Section: Section
 }
