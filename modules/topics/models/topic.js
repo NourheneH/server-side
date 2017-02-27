@@ -8,17 +8,14 @@ var Mongoose = require("mongoose");
 // create instance of Schema
 var mongoSchema = Mongoose.Schema;
 // create schema
-var tagSchema = mongoSchema({
-  
-  name : String,
-  description : String,
-  tagId : String, 
-  topics : [{ type: mongoSchema.Types.ObjectId, ref: 'Topic' }]
+var topicSchema = mongoSchema({
+  title : String,
+  topic_id : String, 
 });
 
 // create model if not exists.
-var Tag = Mongoose.model('Tag', tagSchema);
+var Topic = Mongoose.model('Topic', topicSchema);
 
 module.exports = {
-  Tag: Tag
+  Topic: Topic
 }

@@ -2,7 +2,8 @@
 var express = require("express");
 var router = express();
 var user = require("./modules/users/controllers/user");
-var tag = require("./modules/tags/controllers/tag")
+var tag = require("./modules/tags/controllers/tag");
+var topic = require ("./modules/topics/controllers/topic");
  
 //app.set('superSecret', mongoOp.secret);
 
@@ -26,3 +27,8 @@ router.post("/tag", tag.post);
 router.get("/tags/id/:id", tag.getTagById);
 router.put("/tags/edit/:id", tag.put);
 router.delete("/tags/:id", tag.delete);
+
+
+//Manage Topics 
+router.get("/topics", topic.get);
+router.post("/topic/:id", topic.post);
