@@ -17,7 +17,7 @@ var userSchema = mongoSchema({
   lastname: String,
   confirm: String,
   isAdmin: false,
-
+  image : [{ type: mongoSchema.Types.ObjectId, ref: 'Image' }]
 });
 /*
 // checking if password is valid
