@@ -33,7 +33,7 @@ router.delete("/tags/:id", tag.delete);
 
 //Manage Topics 
 router.get("/topics", topic.get);
-router.post("/topic/:id", topic.post);
+router.post("/topic/user=:id1/tag=:id2", topic.post);
 
 
 //Manage Chapters

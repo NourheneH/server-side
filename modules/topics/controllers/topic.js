@@ -4,10 +4,13 @@ var app         =   express();
 var bodyParser  =   require("body-parser");
 var router      =   express.Router();
 var mon     =   require("../../tags/models/tag");
-var mongoOp  = require("../models/topic")
+var mongoOp  = require("../models/topic");
+var mongo = require("../../users/models/user");
 
 var Tag = mon.Tag;
 var Topic = mongoOp.Topic;
+var User = mongo.User;
+
 var config = require('../../../config/config');
 
 //var error = require("./connect")
@@ -40,6 +43,7 @@ exports.post =function(req,res){
         // Add strict validation when you use this in Production.
       //  db.userId = db._id;
         db.title = req.body.title;
+        db.description = req.body.description;
          db.topicId = db._id;
         db.save(function(err,data){
         // save() will run insert() command of MongoDB.
@@ -47,12 +51,16 @@ exports.post =function(req,res){
             if(err) {
                 response = err;
             } else {
-            Tag.update({_id: req.params.id}, {$push: {topics: db._id}}, function(err,result) {
-               // res.send(result);
-               // response = { data};
-            })
-            response = { data};
+            User.update({_id: req.params.id1}, {$push: {topics: db._id}}, function(err, result){
+               })
+            Tag.update({_id: req.params.id2}, {$push: {topics: db._id}}, function(err,result) {
+                })
+        
+             response = { data};
             }
+             
+                  
+              
             //response = { data};
             res.json(response);
         });

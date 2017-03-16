@@ -10,6 +10,7 @@ var mongoSchema = Mongoose.Schema;
 // create schema
 var topicSchema = mongoSchema({
   title : String,
+  description : String,
   topic_id : String, 
   chapters : [{ type: mongoSchema.Types.ObjectId, ref: 'Chapter' }]
 });

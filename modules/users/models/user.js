@@ -17,7 +17,8 @@ var userSchema = mongoSchema({
   lastname: String,
   confirm: String,
   isAdmin: false,
-  image : [{ type: mongoSchema.Types.ObjectId, ref: 'Image' }]
+  image : [{ type: mongoSchema.Types.ObjectId, ref: 'Image' }],
+  topics : [{type: mongoSchema.Types.ObjectId, ref: 'Topics'}]
 });
 /*
 // checking if password is valid
