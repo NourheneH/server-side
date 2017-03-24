@@ -45,23 +45,38 @@ exports.post =function(req,res){
         db.title = req.body.title;
         db.description = req.body.description;
          db.topicId = db._id;
+         db.tags= req.body.tags;
+         db.author = req.params.id1;
         db.save(function(err,data){
+          /*  if(err) {
+                return (err);
+            } 
+            else {
+            db.get().populate('tags').exec(function(err, topics){
+                if(err){
+                    return(err)
+                }
+                response = { topics};
+                res.json(response);
+            })
+
+            }  */
         // save() will run insert() command of MongoDB.
         // it will add new data in collection.
-            if(err) {
+          if(err) {
                 response = err;
             } else {
-            User.update({_id: req.params.id1}, {$push: {topics: db._id}}, function(err, result){
+           User.update({_id: req.params.id1}, {$push: {topics: db._id}}, function(err, result){
                })
-            Tag.update({_id: req.params.id2}, {$push: {topics: db._id}}, function(err,result) {
+            Tag.update({_id: req.body.tags}, {$push: {topics: db._id}}, function(err,result) {
                 })
         
              response = { data};
             }
              
-                  
+               
               
-            //response = { data};
+            response = { data};
             res.json(response);
         });
     };
