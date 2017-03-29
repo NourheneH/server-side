@@ -13,6 +13,7 @@ var tagSchema = mongoSchema({
   name : String,
   description : String,
   tagId : String, 
+  created_at    : { type: Date, required: true, default: Date.now },
   topics : [{ type: mongoSchema.Types.ObjectId, ref: 'Topic' }]
 });
 
