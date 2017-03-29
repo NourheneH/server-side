@@ -21,15 +21,13 @@ require("../../../config/passport") (passport);
 
     exports.get = function(req,res){
         var response = {};
-        Tag.find(function(err,data){
-        // Mongo command to fetch all data from collection.
-            if(err) {
-                response = err;
-            } else {
-                response = { data};
-                }
-            res.json(response);   
-        });
+        Tag
+         .find({})
+                         .populate({path :'topics' })
+                         .exec(function(err,data){
+                           // console.log(err,user)
+                             res.json({err:err,data:data})
+                         })
     };
 
     //Add tag

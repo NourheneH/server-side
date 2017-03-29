@@ -13,7 +13,7 @@ var tagSchema = mongoSchema({
   name : String,
   description : String,
   tagId : String, 
-  topics : [{ type: mongoSchema.Types.ObjectId, ref: 'topics' }]
+  topics : [{ type: mongoSchema.Types.ObjectId, ref: 'Topic' }]
 });
 
 // create model if not exists.

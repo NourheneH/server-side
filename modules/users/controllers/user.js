@@ -21,16 +21,14 @@ require("../../../config/passport") (passport);
 
     exports.get = function(req,res){
         var response = {};
-        User.find(function(err,data){
-        // Mongo command to fetch all data from collection.
-            if(err) {
-                response = err;
-            } else {
-                response = { data};
-                }
-            res.json(response);   
-        });
-    };
+         User
+         .find({})
+                         .populate({path :'topics' })
+                         .exec(function(err,data){
+                           // console.log(err,user)
+                             res.json({err:err,data:data});
+                         });
+    }
 
     //Add user
 
@@ -39,7 +37,7 @@ exports.post =function(req,res){
         var response = {};
         // fetch email and password from REST request.
         // Add strict validation when you use this in Production.
-      //  db.userId = db._id;
+        db.userId = db._id;
         db.email = req.body.email; 
         // Hash the password using SHA1 algorithm.
         db.password = req.body.password;

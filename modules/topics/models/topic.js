@@ -13,10 +13,10 @@ var topicSchema = mongoSchema({
   title : String,
   description : String,
   topic_id : String, 
-  author : {type: mongoSchema.Types.ObjectId, ref : 'user'},
-  tags : [{ type: mongoSchema.Types.ObjectId, ref: 'tags'}],
- //tags : tag.tagSchema,
-  chapters : [{ type: mongoSchema.Types.ObjectId, ref: 'Chapter' }]
+  user : { type: mongoSchema.Types.ObjectId, ref: 'User'},
+  tags : [{ type: mongoSchema.Types.String, ref: 'Tag'}],
+  chapters : [{ type: mongoSchema.Types.ObjectId, ref: 'Chapter' }],
+
 });
 
 //mongoose.exports = mongoose.model('List', listSchema);

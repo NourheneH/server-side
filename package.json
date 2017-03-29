@@ -13,6 +13,7 @@
   "author": "Nourhene Hadhri",
   "license": "ISC",
   "dependencies": {
+    "async": "^2.2.0",
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.15.2",
     "busboy-body-parser": "^0.3.0",
