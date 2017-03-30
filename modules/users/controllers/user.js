@@ -43,6 +43,7 @@ exports.post =function(req,res){
         db.password = req.body.password;
         db.confirm = req.body.confirm;
         db.lastname= req.body.lastname;
+        db.job = req.body.job;
         db.firstname = req.body.firstname; 
         db.isAdmin = false;
     
@@ -142,6 +143,10 @@ exports.post =function(req,res){
                  if(req.body.firstname !== undefined) {
                     // case where email needs to be updated.
                     data.firstname = req.body.firstname;
+                }
+                 if(req.body.job !== undefined) {
+                    // case where email needs to be updated.
+                    data.job = req.body.job;
                 }
                 // save the data
                 data.save(function(err){
