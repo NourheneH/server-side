@@ -34,6 +34,7 @@ router.delete("/tags/:id", tag.delete);
 //Manage Topics 
 router.get("/topics", topic.get);
 router.post("/topic/:id1", topic.post);
+router.get("/topics/:id", topic.getTopicById);
 //router.get("/topic/tag/:id", topic.getTagsByTopic);
 
 //Manage Chapters

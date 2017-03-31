@@ -31,6 +31,22 @@ app.use(bodyParser.urlencoded({"extended" : false}));
                              res.json({err:err,data:data})
                          })
                         }
+
+    //Get Topic by id 
+exports.getTopicById = function(req,res){
+        var response = {}
+        //User.find({email:req.params.email,password:req.params.password},function(err,data){
+           // User.find({userId:req.params.userId},function(err,data){
+               Topic
+               .findById(req.params.id)
+                         .populate({path :'user' })
+                         .populate({path : 'tags'})
+                         .exec(function(err,data){
+                           // console.log(err,user)
+                             res.json({err:err,data:data})
+                         })
+           
+    };    
     //Add topic
 
 exports.post =function(req,res){
