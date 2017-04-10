@@ -45,7 +45,7 @@ exports.post =function(req,res){
         db.lastname= req.body.lastname;
         db.job = req.body.job;
         db.firstname = req.body.firstname; 
-        db.isAdmin = false;
+        db.isAdmin = req.body.isAdmin;
     
 
         db.save(function(err,data){
@@ -78,15 +78,11 @@ exports.post =function(req,res){
         var response = {}
         //User.find({email:req.params.email,password:req.params.password},function(err,data){
            // User.find({userId:req.params.userId},function(err,data){
-               User.findById(req.params.id, function(err,data){
-            if(err){
-                response= err;
-            }
-            else{
-               response={data}; 
-            }
-            res.json(response);
-        });
+               User.findById(req.params.id)
+                .populate({path: 'topics'})
+                .exec(function(err,data){
+                    res.json({err:err, data:data})
+                })
     };
     // Get by email :
        exports.getByEmail = function(req,res){
@@ -147,6 +143,10 @@ exports.post =function(req,res){
                  if(req.body.job !== undefined) {
                     // case where email needs to be updated.
                     data.job = req.body.job;
+                }
+                if(req.body.isAdmin !== undefined) {
+                    // case where email needs to be updated.
+                    data.isAdmin = req.body.isAdmin;
                 }
                 // save the data
                 data.save(function(err){

@@ -17,7 +17,7 @@ var userSchema = mongoSchema({
   lastname: String,
   confirm: String,
   job: String,
-  isAdmin: false,
+  isAdmin: Boolean,
   image : [{ type: mongoSchema.Types.ObjectId, ref: 'Image' }],
   topics : [{type: mongoSchema.Types.ObjectId, ref: 'Topic'}]
 });
