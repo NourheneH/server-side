@@ -206,7 +206,7 @@ exports.post =function(req,res){
                     expiresIn: 604500 // expires in 24 hours
                 });
                 req.session.token = token;
-                return res.json({state: 'userMainView', token: token,});
+                return res.json({currentuser: user , token: token,});
 
             });
         })(req, res,next);
