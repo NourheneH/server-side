@@ -13,9 +13,11 @@ var tagSchema = mongoSchema({
   name : String,
   description : String,
   tagId : String, 
-  created_at    : { type: Date, required: true, default: Date.now },
+  // created_at    : { type: Date, required: true, default: Date.now },
+  // updated_at : {type: Date, default: Date.now},
   topics : [{ type: mongoSchema.Types.ObjectId, ref: 'Topic' }]
-});
+},
+ { timestamps: { createdAt: 'created_at' , updatedAt: 'updated_at'} });
 
 // create model if not exists.
 var Tag = Mongoose.model('Tag', tagSchema);

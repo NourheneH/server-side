@@ -24,6 +24,7 @@ require("../../../config/passport") (passport);
          User
          .find({})
                          .populate({path :'topics' })
+                         .populate({path: 'image'})
                          .exec(function(err,data){
                            // console.log(err,user)
                              res.json({err:err,data:data});

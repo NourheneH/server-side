@@ -61,7 +61,6 @@ conn.once("open", () => {
         });
 
         writeStream.on('close', (file) => {
-            console.log('id of img', file._id);
             User.update({_id: req.params.id}, {$push : {image: file._id}}, function(err,result){
             res.send(result);
         })
@@ -76,9 +75,9 @@ conn.once("open", () => {
 
         writeStream.end();
 
-        User.update({_id: req.params.id}, {$push : {image: gfs.files._id}}, function(err,result){
-            res.send(result);
-        }) 
+        // User.update({_id: req.params.id}, {$push : {image: gfs.files._id}}, function(err,result){
+        //     res.send(result);
+        // }) 
     }); 
 })
 

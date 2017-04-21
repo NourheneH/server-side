@@ -13,12 +13,12 @@ var topicSchema = mongoSchema({
   title : String,
   description : String,
   topic_id : String, 
-  created_at    : { type: Date, required: true, default: Date.now },
+  // created_at    : { type: Date, required: true, default: Date.now },
   user : { type: mongoSchema.Types.ObjectId, ref: 'User'},
   tags : [{ type: mongoSchema.Types.String, ref: 'Tag'}],
   chapters : [{ type: mongoSchema.Types.ObjectId, ref: 'Chapter' }],
-
-});
+},
+ { timestamps: { createdAt: 'created_at' , updatedAt: 'updated_at'} });
 
 //mongoose.exports = mongoose.model('List', listSchema);
 // create model if not exists.

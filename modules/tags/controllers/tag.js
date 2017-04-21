@@ -15,7 +15,7 @@ app.use(bodyParser.urlencoded({"extended" : false}));
 
 require("../../../config/passport") (passport);
 /*
-    ****User***
+    ***Tags****
  */
 //Get All tags
 
@@ -86,6 +86,9 @@ exports.post =function(req,res){
                     // case where password needs to be updated
                     data.description = req.body.description;
                 }
+                // if(req.body.updated_at !== undefined){
+                //     data.updated_at = Date.now ; 
+                // }
                 // save the data
                 data.save(function(err){
                     if(err) {
